@@ -33,18 +33,15 @@
       width: 100%;
       max-width: 900px;
     }
-    
-    /* GAYA FONT RIGHTEOUS WARNA PUTIH BIASA */
     .page-title {
-      font-family: 'Righteous', cursive, sans-serif; /* MENGGUNAKAN FONT RIGHTEOUS */
+      font-family: 'Righteous', cursive, sans-serif;
       font-size: 2.2rem;
       text-align: center;
-      color: #ffffff; /* Warna putih polos */
+      color: #ffffff;
       margin-bottom: 25px; 
       letter-spacing: 1.5px;
       width: 100%;
     }
-    
     .video-container {
       width: 100%;
       background: #1e293b;
@@ -80,38 +77,27 @@
     }
   </style>
 
-  <!-- PENCEGAH REDIRECT AUTOMATIS -->
+  <!-- SCRIPT PEMBLOKIR POPUP / IKLAN TAB BARU -->
   <script>
-    // 1. Memblokir skrip luar yang mencoba membuka tab/window baru (popunder/popup)
     window.open = function() {
-      console.warn("Iklan Popup/Redirect otomatis diblokir oleh sistem.");
+      console.warn("Iklan popup diblokir otomatis.");
       return null;
-    };
-
-    // 2. Mencegah manipulasi navigasi halaman utama dari iframe
-    let allowNavigation = false;
-    window.onbeforeunload = function() {
-      if (!allowNavigation) {
-        return "Situs web mencoba melakukan redirect tanpa izin Anda.";
-      }
     };
   </script>
 </head>
 <body>
 
   <div class="main-container">
-    <!-- Judul Righteous di atas & Rata Tengah -->
     <h1 class="page-title">SM TV GBI Pertama Cimone</h1>
 
-    <!-- Frame/Container video -->
     <div class="video-container">
       <div class="player-wrapper">
+        <!-- Atribut sandbox dihapus agar pemutar video tidak terdeteksi rusak -->
         <iframe 
-          src="https://111movies.net/movie/1167307" 
+          src="https://player.vidlove.cc/embed/movie/1167307" 
           allowfullscreen="true"
           webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          sandbox="allow-scripts allow-same-origin allow-forms">
+          mozallowfullscreen="true">
         </iframe>
       </div>
       
