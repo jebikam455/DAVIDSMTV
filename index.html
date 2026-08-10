@@ -77,11 +77,14 @@
     }
   </style>
 
-  <!-- SCRIPT PEMBLOKIR POPUP / IKLAN TAB BARU -->
+  <!-- PENCEGAH NAVIGASI TOP-LEVEL DENGAN OVERRIDE PROXIED OPEN -->
   <script>
-    window.open = function() {
-      console.warn("Iklan popup diblokir otomatis.");
-      return null;
+    // Mematikan pembukaan tab baru secara paksa di level window
+    window.open = function() { return null; };
+    
+    // Mencegah iframe mengganti lokasi URL halaman utama kamu
+    window.onbeforeunload = function() {
+      return "Situs mencoba melakukan redirect otomatis. Tetap di halaman ini?";
     };
   </script>
 </head>
@@ -92,12 +95,14 @@
 
     <div class="video-container">
       <div class="player-wrapper">
-        <!-- Atribut sandbox dihapus agar pemutar video tidak terdeteksi rusak -->
+        <!-- Kombinasi Sandbox & ReferrerPolicy khusus pemblokir redirect -->
         <iframe 
           src="https://player.vidlove.cc/embed/movie/1167307" 
           allowfullscreen="true"
           webkitallowfullscreen="true"
-          mozallowfullscreen="true">
+          mozallowfullscreen="true"
+          referrerpolicy="origin"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock">
         </iframe>
       </div>
       
