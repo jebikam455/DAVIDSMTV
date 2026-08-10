@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SM TV GBI Pertama Cimone</title>
+  
+  <!-- IMPOR GOOGLE FONT: RIGHTEOUS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 900px;
+    }
+    
+    /* GAYA FONT RIGHTEOUS WARNA PUTIH BIASA */
+    .page-title {
+      font-family: 'Righteous', cursive, sans-serif; /* MENGGUNAKAN FONT RIGHTEOUS */
+      font-size: 2.2rem;
+      text-align: center;
+      color: #ffffff; /* Warna putih polos */
+      margin-bottom: 25px; 
+      letter-spacing: 1.5px;
+      width: 100%;
+    }
+    
+    .video-container {
+      width: 100%;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .player-wrapper {
+      position: relative;
+      padding-top: 56.25%; /* Ratio 16:9 */
+      width: 100%;
+      background: #000;
+    }
+    .player-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .video-info {
+      padding: 24px;
+    }
+    .video-info h1 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+    .video-info p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+  </style>
+
+  <!-- PENCEGAH REDIRECT AUTOMATIS -->
+  <script>
+    // 1. Memblokir skrip luar yang mencoba membuka tab/window baru (popunder/popup)
+    window.open = function() {
+      console.warn("Iklan Popup/Redirect otomatis diblokir oleh sistem.");
+      return null;
+    };
+
+    // 2. Mencegah manipulasi navigasi halaman utama dari iframe
+    let allowNavigation = false;
+    window.onbeforeunload = function() {
+      if (!allowNavigation) {
+        return "Situs web mencoba melakukan redirect tanpa izin Anda.";
+      }
+    };
+  </script>
+</head>
+<body>
+
+  <div class="main-container">
+    <!-- Judul Righteous di atas & Rata Tengah -->
+    <h1 class="page-title">SM TV GBI Pertama Cimone</h1>
+
+    <!-- Frame/Container video -->
+    <div class="video-container">
+      <div class="player-wrapper">
+        <iframe 
+          src="https://111movies.net/movie/1167307" 
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          sandbox="allow-scripts allow-same-origin allow-forms">
+        </iframe>
+      </div>
+      
+      <div class="video-info">
+        <h1>DAVID &#40;2025&#41;</h1>
+        <p>Dari nyanyian ibunya hingga pertarungannya dengan Goliat. Perjalanan Daud dari gembala yang rendah hati menjadi raja menguji batas iman, keberanian, dan kasih sayang—berpuncak pada pertempuran untuk jiwa sebuah kerajaan.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
