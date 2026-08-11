@@ -222,6 +222,124 @@
         }
 
         /* ============================================================
+               BRAVE MODAL (hanya untuk non-Brave)
+               ============================================================ */
+        #braveModal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(12px, 4vw, 30px);
+            animation: modalFade 0.5s ease;
+        }
+
+        #braveModal.active {
+            display: flex;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: min(500px, 94vw);
+            width: 100%;
+            padding: clamp(24px, 5vw, 44px) clamp(18px, 4vw, 36px);
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+            animation: modalBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        @keyframes modalBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-box .modal-icon {
+            font-size: clamp(44px, 12vw, 76px);
+            color: #ff5500;
+            margin-bottom: var(--space-xs);
+        }
+
+        .modal-box h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            color: #2d1b0e;
+            margin-bottom: var(--space-xs);
+        }
+
+        .modal-box .modal-desc {
+            color: #666;
+            font-size: var(--font-sm);
+            line-height: 1.6;
+            margin-bottom: var(--space-xs);
+        }
+
+        .modal-box .modal-highlight {
+            color: #ff5500;
+            font-weight: 700;
+        }
+
+        .modal-box .btn-brave {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: clamp(12px, 2vw, 16px) clamp(20px, 5vw, 44px);
+            background: #ff5500;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: clamp(15px, 1.8vw, 18px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(255, 85, 0, 0.30);
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .modal-box .btn-brave:hover {
+            background: #e64a00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 85, 0, 0.40);
+        }
+
+        .modal-box .btn-brave:active {
+            transform: scale(0.96);
+        }
+
+        .modal-box .modal-note {
+            font-size: var(--font-xs);
+            color: #aaa;
+            margin-top: var(--space-sm);
+        }
+
+        /* ============================================================
                APP
                ============================================================ */
         #app {
@@ -487,82 +605,6 @@
 
             .navbar .hamburger.active .bar:nth-child(3) {
                 transform: translateY(-7px) rotate(-45deg);
-            }
-        }
-
-        /* ============================================================
-               BRAVE RECOMMENDATION BANNER (non-blocking)
-               ============================================================ */
-        .brave-banner {
-            background: linear-gradient(135deg, #2d1b0e, #4a2f1a);
-            color: #f5e6d3;
-            padding: var(--space-sm) clamp(16px, 3vw, 32px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-            flex-wrap: wrap;
-            font-size: var(--font-sm);
-            border-bottom: 2px solid var(--color-primary);
-            position: relative;
-            z-index: 999;
-            margin-top: var(--nav-height);
-            text-align: center;
-        }
-
-        .brave-banner i {
-            color: var(--color-primary);
-            font-size: clamp(16px, 2vw, 22px);
-        }
-
-        .brave-banner a {
-            color: var(--color-primary);
-            font-weight: 600;
-            text-decoration: underline;
-            transition: color 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-        }
-
-        .brave-banner a:hover {
-            color: #f7dc6f;
-        }
-
-        .brave-banner .brave-close {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: #b8a898;
-            font-size: var(--font-sm);
-            cursor: pointer;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 30px;
-            transition: background 0.3s, color 0.3s;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            font-weight: 500;
-        }
-
-        .brave-banner .brave-close:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-        }
-
-        .brave-banner .brave-close:active {
-            transform: scale(0.94);
-        }
-
-        @media (max-width: 600px) {
-            .brave-banner {
-                font-size: var(--font-xs);
-                padding: var(--space-xs) clamp(12px, 2vw, 16px);
-                gap: var(--space-xs);
-                flex-direction: column;
-                line-height: 1.5;
-            }
-            .brave-banner .brave-close {
-                font-size: var(--font-xs);
-                padding: 2px var(--space-sm);
             }
         }
 
@@ -1334,22 +1376,27 @@
         </button>
     </div>
 
+    <!-- ===== BRAVE MODAL ===== -->
+    <div id="braveModal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fas fa-shield-alt"></i></div>
+            <h2>Gunakan Brave Browser</h2>
+            <p class="modal-desc">
+                Shalom! Mohon maaf, <span class="modal-highlight">SM TV</span><br />
+                hanya dapat diakses melalui <span class="modal-highlight">Brave Browser</span><br />
+                untuk pengalaman menonton yang lebih baik.
+            </p>
+            <a href="#" class="btn-brave" id="btnBraveDownload">
+                <i class="fas fa-download"></i> Download Brave
+            </a>
+            <p class="modal-note">
+                <i class="fas fa-info-circle"></i> Gratis untuk Windows, Mac, Linux, Android, iOS
+            </p>
+        </div>
+    </div>
+
     <!-- ===== APP ===== -->
     <div id="app">
-
-        <!-- BRAVE RECOMMENDATION BANNER (non-blocking) -->
-        <div class="brave-banner" id="braveBanner">
-            <i class="fas fa-shield-alt"></i>
-            <span>
-                <strong>Tips:</strong> Nikmati tayangan rohani dengan lebih lancar menggunakan
-                <a href="https://brave.com/download/" target="_blank" rel="noopener">
-                    Brave Browser <i class="fas fa-external-link-alt" style="font-size:0.75em;"></i>
-                </a>
-            </span>
-            <button class="brave-close" id="braveBannerClose" aria-label="Tutup saran Brave">
-                <i class="fas fa-times"></i> Tutup
-            </button>
-        </div>
 
         <!-- NAVBAR -->
         <nav class="navbar">
@@ -1470,6 +1517,19 @@
             'Menceritakan petualangan seru dua anak bernama Chris dan Joy, bersama robot mereka Gizmo. Dalam keseharian, mereka menghadapi tantangan seperti anak-anak lainnya. Namun, melalui sebuah alat bernama Superbook, mereka bertiga mampu menjelajah lorong waktu, bertemu dengan tokoh-tokoh Alkitab, dan menjadi saksi mata sejarah.';
 
         // ============================================================
+        //  BRAVE DETECTION (HANYA DETEKSI, TANPA CEK SHIELD)
+        // ============================================================
+        function isBraveBrowser() {
+            if (navigator.userAgent && navigator.userAgent.includes('Brave')) return true;
+            if (navigator.brave) {
+                try {
+                    if (typeof navigator.brave.isBrave === 'function') return true;
+                } catch (_) {}
+            }
+            return false;
+        }
+
+        // ============================================================
         //  EMBED HELPER
         // ============================================================
         function getSuperbookEmbedUrl(season, episode) {
@@ -1477,26 +1537,32 @@
         }
 
         // ============================================================
-        //  MAIN INIT – LANGSUNG JALANKAN APLIKASI TANPA CEK BRAVE
+        //  MAIN INIT – CEK BRAVE SAAT TOMBOL "MULAI" DIKLIK
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             const btnStart = document.getElementById('btnStart');
             btnStart.addEventListener('click', function() {
                 startApp();
             });
-
-            // Tutup banner Brave
-            const closeBanner = document.getElementById('braveBannerClose');
-            if (closeBanner) {
-                closeBanner.addEventListener('click', function() {
-                    const banner = document.getElementById('braveBanner');
-                    if (banner) banner.style.display = 'none';
-                });
-            }
         });
 
         function startApp() {
-            // Langsung tampilkan aplikasi (tanpa cek Brave)
+            const isBrave = isBraveBrowser();
+
+            if (!isBrave) {
+                // Tampilkan modal download Brave
+                const ua = navigator.userAgent || '';
+                let downloadUrl = 'https://brave.com/download/';
+                if (/android/i.test(ua)) downloadUrl = 'https://play.google.com/store/apps/details?id=com.brave.browser';
+                else if (/iphone|ipad|ipod/i.test(ua)) downloadUrl = 'https://apps.apple.com/us/app/brave-browser/id1052879175';
+                document.getElementById('btnBraveDownload').href = downloadUrl;
+
+                document.getElementById('splash').classList.add('hide');
+                document.getElementById('braveModal').classList.add('active');
+                return;
+            }
+
+            // Jika Brave, langsung jalankan aplikasi
             document.getElementById('splash').classList.add('hide');
             document.getElementById('app').classList.add('show');
 
