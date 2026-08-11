@@ -1,113 +1,1924 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SM TV GBI Pertama Cimone</title>
-  
-  <!-- IMPOR GOOGLE FONT: RIGHTEOUS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SM TV GBI Pertama Cimone</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      font-family: system-ui, -apple-system, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
-    .main-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 900px;
-    }
-    .page-title {
-      font-family: 'Righteous', cursive, sans-serif;
-      font-size: 2.2rem;
-      text-align: center;
-      color: #ffffff;
-      margin-bottom: 25px; 
-      letter-spacing: 1.5px;
-      width: 100%;
-    }
-    .video-container {
-      width: 100%;
-      background: #1e293b;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    }
-    .player-wrapper {
-      position: relative;
-      padding-top: 56.25%; /* Ratio 16:9 */
-      width: 100%;
-      background: #000;
-    }
-    .player-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    .video-info {
-      padding: 24px;
-    }
-    .video-info h1 {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-    }
-    .video-info p {
-      font-size: 0.875rem;
-      color: #94a3b8;
-      line-height: 1.6;
-    }
-  </style>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <!-- PENCEGAH POPUP/REDIRECT AUTOMATIS -->
-  <script>
-    window.open = function() { return null; };
-    window.onbeforeunload = function() {
-      return "Apakah Anda yakin ingin meninggalkan halaman?";
-    };
-  </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f8f6f0;
+            color: #1e1e2a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== SPLASH SCREEN ===== */
+        #splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: linear-gradient(145deg, #f9d976, #f39c12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            overflow: hidden;
+        }
+
+        #splash.hide {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+
+        #splash .logo-icon {
+            font-size: 90px;
+            color: #fff;
+            text-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 12px;
+            animation: iconPop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg);
+        }
+
+        @keyframes iconPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            60% {
+                transform: scale(1.2) rotate(3deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        #splash h1 {
+            font-size: 52px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 4px;
+            animation: fadeUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        #splash h1 span {
+            color: #e67e22;
+        }
+
+        #splash .subtitle {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            max-width: 400px;
+            margin-top: 2px;
+            animation: fadeUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+            letter-spacing: 0.5px;
+        }
+
+        #splash .btn-start {
+            margin-top: 36px;
+            padding: 16px 56px;
+            background: #2d1b0e;
+            color: #fff;
+            border: none;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            animation: bounceIn 0.8s ease 0.9s forwards;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #splash .btn-start i {
+            font-size: 22px;
+        }
+
+        #splash .btn-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #1f1208;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        #splash .btn-start:active {
+            transform: scale(0.96);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== GHOSTERY WARNING OVERLAY ===== */
+        #ghosteryWarning {
+            position: fixed;
+            inset: 0;
+            z-index: 10001;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #ghosteryWarning.active {
+            display: flex;
+        }
+
+        .warning-box {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+            animation: modalBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .warning-box .warning-icon {
+            font-size: 64px;
+            color: #ff5500;
+            margin-bottom: 12px;
+        }
+
+        .warning-box h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d1b0e;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .warning-box .highlight {
+            color: #ff5500;
+            font-weight: 700;
+        }
+
+        .warning-box .steps {
+            text-align: left;
+            background: #f8f6f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px 0;
+        }
+
+        .warning-box .steps li {
+            list-style: none;
+            font-size: 14px;
+            color: #555;
+            padding: 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .warning-box .steps li i {
+            color: #f39c12;
+            font-size: 16px;
+            margin-top: 2px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .warning-box .btn-install {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 44px;
+            background: #ff5500;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(255, 85, 0, 0.30);
+            width: 100%;
+            justify-content: center;
+            text-decoration: none;
+            margin-top: 4px;
+        }
+
+        .warning-box .btn-install:hover {
+            background: #e64a00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 85, 0, 0.40);
+        }
+
+        .warning-box .btn-install i {
+            font-size: 20px;
+        }
+
+        .warning-box .btn-retry {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: transparent;
+            color: #ff5500;
+            border: 2px solid #ff5500;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .warning-box .btn-retry:hover {
+            background: #ff5500;
+            color: #fff;
+        }
+
+        /* ===== APP ===== */
+        #app {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        #app.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 253, 245, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid rgba(243, 156, 18, 0.25);
+            padding: 0 30px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            color: #2d1b0e;
+        }
+
+        .navbar .logo i {
+            color: #f39c12;
+            font-size: 26px;
+        }
+
+        .navbar .logo span {
+            color: #f39c12;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 0 auto;
+        }
+
+        .navbar .nav-links li {
+            cursor: pointer;
+            color: #5a4a3a;
+            transition: color 0.3s, border-color 0.3s;
+            padding: 6px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .navbar .nav-links li:hover,
+        .navbar .nav-links li.active {
+            color: #2d1b0e;
+            border-bottom-color: #f39c12;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #2d1b0e;
+            padding: 4px;
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            padding-top: 68px;
+            min-height: calc(100vh - 68px);
+        }
+
+        .page {
+            display: none;
+            padding: 30px 30px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeUp 0.5s ease;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(145deg, #fef3d7, #fce4b8);
+            border-radius: 28px;
+            padding: 50px 50px 40px;
+            margin-bottom: 48px;
+            border: 1px solid rgba(243, 156, 18, 0.20);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.08);
+            text-align: center;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -10%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.10), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: #2d1b0e;
+        }
+
+        .hero h1 span {
+            color: #e67e22;
+        }
+
+        .hero p {
+            margin-top: 14px;
+            color: #5a4a3a;
+            font-size: 18px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            margin-top: 24px;
+            background: rgba(243, 156, 18, 0.15);
+            border: 1px solid rgba(243, 156, 18, 0.25);
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d35400;
+            letter-spacing: 0.5px;
+        }
+
+        .hero .badge i {
+            margin-right: 6px;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .section-title h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d1b0e;
+        }
+
+        .section-title h2 i {
+            color: #f39c12;
+            margin-right: 10px;
+        }
+
+        .section-title .see-all {
+            font-size: 14px;
+            color: #7a6a5a;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .section-title .see-all:hover {
+            color: #e67e22;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 28px;
+            margin-bottom: 50px;
+        }
+
+        .content-card {
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: #f39c12;
+        }
+
+        .content-card .poster {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: #f0ebe0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #f39c12;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card .poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-card .poster .poster-placeholder {
+            font-size: 56px;
+            opacity: 0.4;
+            color: #d35400;
+        }
+
+        .content-card .poster .overlay-icon {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .content-card:hover .poster .overlay-icon {
+            opacity: 1;
+        }
+
+        .content-card .poster .overlay-icon i {
+            font-size: 56px;
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .content-card .info {
+            padding: 16px 18px 20px;
+            background: #fff;
+        }
+
+        .content-card .info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2d1b0e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .content-card .info .meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #7a6a5a;
+        }
+
+        .content-card .info .meta .tag {
+            background: rgba(243, 156, 18, 0.12);
+            color: #d35400;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .content-card .info .meta .tag.series {
+            background: rgba(46, 204, 113, 0.12);
+            color: #27ae60;
+        }
+
+        .content-card .info .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #f39c12;
+            font-size: 13px;
+        }
+
+        /* ===== PLAYER PAGE ===== */
+        .player-wrapper {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            margin-bottom: 30px;
+        }
+
+        .player-wrapper .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #1a1a1a;
+        }
+
+        .player-wrapper .video-container iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== CLICK BLOCKER OVERLAY ===== */
+        #clickBlocker {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .player-details {
+            padding: 28px 32px 32px;
+            background: #fff;
+            text-align: left;
+            position: relative;
+        }
+
+        /* Tombol kembali di kanan atas player */
+        .player-details .back-link-player {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            font-size: 14px;
+            color: #7a6a5a;
+            cursor: pointer;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .player-details .back-link-player:hover {
+            color: #e67e22;
+        }
+
+        .player-details h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d1b0e;
+            margin-bottom: 4px;
+        }
+
+        .player-details .sub-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            color: #7a6a5a;
+            margin-top: 6px;
+        }
+
+        .player-details .sub-meta .tag {
+            background: rgba(243, 156, 18, 0.12);
+            color: #d35400;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .player-details .sub-meta .tag.series {
+            background: rgba(46, 204, 113, 0.12);
+            color: #27ae60;
+        }
+
+        .player-details .sub-meta .rating {
+            color: #f39c12;
+        }
+
+        .player-details .desc {
+            margin-top: 14px;
+            color: #4a3a2a;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 700px;
+        }
+
+        /* ===== EPISODE SECTION ===== */
+        .episode-section {
+            margin-top: 12px;
+            padding-top: 8px;
+        }
+
+        .episode-section .season-tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .episode-section .season-tabs .tab {
+            padding: 8px 24px;
+            border-radius: 40px;
+            background: #f0ebe0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a4a3a;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .episode-section .season-tabs .tab:hover {
+            background: #e6ddd0;
+            color: #2d1b0e;
+        }
+
+        .episode-section .season-tabs .tab.active {
+            background: rgba(243, 156, 18, 0.15);
+            color: #d35400;
+            border-color: rgba(243, 156, 18, 0.30);
+        }
+
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .episode-item {
+            background: #fcf9f4;
+            border-radius: 14px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .episode-item:hover {
+            background: #f5efe6;
+            border-color: #f39c12;
+            transform: translateY(-2px);
+        }
+
+        .episode-item .ep-num {
+            font-size: 12px;
+            font-weight: 600;
+            color: #d35400;
+            letter-spacing: 0.5px;
+        }
+
+        .episode-item .ep-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 4px;
+            color: #2d1b0e;
+        }
+
+        .episode-item .ep-title i {
+            font-size: 12px;
+            color: #f39c12;
+            margin-left: 6px;
+        }
+
+        .episode-item .ep-desc {
+            font-size: 13px;
+            color: #6a5a4a;
+            margin-top: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 30px 20px 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+            color: #8a7a6a;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .footer span {
+            color: #d35400;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+            .hero {
+                padding: 34px 30px 30px;
+            }
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 20px;
+            }
+            .episode-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            #splash h1 {
+                font-size: 38px;
+            }
+            #splash .logo-icon {
+                font-size: 70px;
+            }
+            .warning-box {
+                padding: 32px 24px;
+            }
+            .warning-box h2 {
+                font-size: 22px;
+            }
+            .navbar .nav-links {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 16px;
+            }
+            .navbar .nav-links {
+                display: none;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 253, 245, 0.98);
+                flex-direction: column;
+                padding: 20px 30px;
+                gap: 16px;
+                border-bottom: 2px solid rgba(243, 156, 18, 0.15);
+                align-items: center;
+            }
+            .navbar .nav-links.open {
+                display: flex;
+            }
+            .navbar .hamburger {
+                display: block;
+            }
+
+            .page {
+                padding: 20px 16px 40px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .hero p {
+                font-size: 15px;
+            }
+            .hero {
+                padding: 28px 20px 24px;
+            }
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+                gap: 14px;
+            }
+            .content-card .info h3 {
+                font-size: 14px;
+            }
+            .player-details {
+                padding: 20px 18px 24px;
+            }
+            .player-details h2 {
+                font-size: 22px;
+            }
+            .player-details .back-link-player {
+                position: static;
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+            .episode-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+            .section-title h2 {
+                font-size: 20px;
+            }
+            .navbar .logo {
+                font-size: 17px;
+            }
+            .navbar .logo i {
+                font-size: 22px;
+            }
+            #splash h1 {
+                font-size: 32px;
+            }
+            #splash .logo-icon {
+                font-size: 60px;
+            }
+            #splash .btn-start {
+                padding: 14px 40px;
+                font-size: 18px;
+            }
+            #splash .subtitle {
+                font-size: 16px;
+            }
+            .warning-box {
+                padding: 28px 20px;
+            }
+            .warning-box .warning-icon {
+                font-size: 48px;
+            }
+            .warning-box h2 {
+                font-size: 20px;
+            }
+            .warning-box .btn-install {
+                font-size: 15px;
+                padding: 12px 28px;
+            }
+            .warning-box .btn-retry {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 12px;
+            }
+            .content-card .info {
+                padding: 12px 12px 16px;
+            }
+            .content-card .info h3 {
+                font-size: 13px;
+            }
+            .episode-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero h1 {
+                font-size: 22px;
+            }
+            #splash h1 {
+                font-size: 28px;
+            }
+            #splash .logo-icon {
+                font-size: 50px;
+            }
+            #splash .btn-start {
+                padding: 12px 32px;
+                font-size: 16px;
+            }
+            #splash .subtitle {
+                font-size: 14px;
+            }
+            .warning-box {
+                padding: 24px 16px;
+                border-radius: 16px;
+            }
+            .warning-box .warning-icon {
+                font-size: 40px;
+            }
+            .warning-box h2 {
+                font-size: 18px;
+            }
+            .warning-box p {
+                font-size: 14px;
+            }
+            .warning-box .btn-install {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+            .warning-box .btn-retry {
+                font-size: 13px;
+                padding: 8px 16px;
+            }
+            .warning-box .steps li {
+                font-size: 13px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="main-container">
-    <h1 class="page-title">SM TV GBI Pertama Cimone</h1>
-
-    <div class="video-container">
-      <div class="player-wrapper">
-        <!-- LINK DIGANTI DENGAN YANG MENDUKUNG SUBTITLE INDONESIA -->
-        <iframe 
-          src="https://nontongo.win/embed/movie/1167307"
-          allowfullscreen="true"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          sandbox="allow-scripts allow-same-origin allow-forms">
-        </iframe>
-      </div>
-      
-      <div class="video-info">
-        <h1>DAVID &#40;2025&#41;</h1>
-        <p>Dari nyanyian ibunya hingga pertarungannya dengan Goliat. Perjalanan Daud dari gembala yang rendah hati menjadi raja menguji batas iman, keberanian, dan kasih sayang—berpuncak pada pertempuran untuk jiwa sebuah kerajaan.</p>
-      </div>
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div id="splash">
+        <div class="logo-icon"><i class="fas fa-tv"></i></div>
+        <h1>SM <span>TV</span></h1>
+        <p class="subtitle">GBI Pertama Cimone</p>
+        <button class="btn-start" id="btnStart">
+            <i class="fas fa-play"></i> Mulai
+        </button>
     </div>
-  </div>
+
+    <!-- ===== GHOSTERY WARNING ===== -->
+    <div id="ghosteryWarning">
+        <div class="warning-box">
+            <div class="warning-icon"><i class="fas fa-shield-alt"></i></div>
+            <h2>Instal Ghostery</h2>
+            <p>
+                <span class="highlight">SM TV</span> membutuhkan <strong>Ghostery</strong> 
+                untuk melindungi Anda dari iklan mengganggu dan redirect berbahaya.
+            </p>
+            <p style="font-size:14px; color:#888; margin-bottom:4px;">
+                Pasang ekstensi ini melalui Chrome Web Store, lalu refresh halaman.
+            </p>
+            <ol class="steps">
+                <li><i class="fas fa-1"></i> Klik tombol <strong>"Install Ghostery"</strong> di bawah.</li>
+                <li><i class="fas fa-2"></i> Klik <strong>"Tambahkan ke Chrome"</strong>.</li>
+                <li><i class="fas fa-3"></i> Setelah terpasang, refresh halaman ini.</li>
+            </ol>
+            <a href="https://chrome.google.com/webstore/detail/ghostery/mlomiejdfkolichcflejclcbmpeaniij" target="_blank" class="btn-install">
+                <i class="fas fa-download"></i> Install Ghostery
+            </a>
+            <button class="btn-retry" id="btnRetryGhostery">
+                <i class="fas fa-sync-alt"></i> Cek Ulang & Mulai
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== APP ===== -->
+    <div id="app">
+
+        <!-- NAVBAR -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-tv"></i>
+               <span> SMTV</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li class="active" data-page="home">Beranda</li>
+                <li data-page="films">Film</li>
+                <li data-page="series">TV</li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- HOME -->
+            <div class="page active" id="page-home">
+                <div class="hero">
+                    <h1>Selamat datang di&nbsp;<span>SM TV</span><br />GBI Pertama Cimone</h1>
+                    <p>
+                        "Haruslah engkau mengajarkannya berulang-ulang kepada anak-anakmu dan membicarakannya apabila engkau duduk di rumahmu, apabila engkau sedang dalam perjalanan, apabila engkau berbaring dan apabila engkau bangun." 
+                    </p>
+
+                    <p>
+                   <strong>Ulangan 6:7</strong>
+                    </p>
+                </div>
+
+                <div class="section-title">
+                    <h2><i class="fas fa-film"></i> Rekomendasi Film</h2>
+                    <span class="see-all" onclick="navigateTo('films')">Lihat semua &rarr;</span>
+                </div>
+                <div class="content-grid" id="featuredFilms"></div>
+
+                <div class="section-title">
+                    <h2><i class="fas fa-tv"></i>Serial Animasi</h2>
+                    <span class="see-all" onclick="navigateTo('series')">Lihat semua &rarr;</span>
+                </div>
+                <div class="content-grid" id="featuredSeries"></div>
+            </div>
+
+            <!-- FILMS -->
+            <div class="page" id="page-films">
+                <div class="section-title">
+                    <h2><i class="fas fa-film"></i> Semua Film</h2>
+                    <span class="see-all" onclick="navigateTo('home')" style="font-size:14px; color:#7a6a5a; cursor:pointer; transition:color 0.3s; font-weight:500;">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </span>
+                </div>
+                <div class="content-grid" id="allFilmsGrid"></div>
+            </div>
+
+            <!-- SERIES -->
+            <div class="page" id="page-series">
+                <div class="section-title">
+                    <h2><i class="fas fa-tv"></i> Semua Series</h2>
+                    <span class="see-all" onclick="navigateTo('home')" style="font-size:14px; color:#7a6a5a; cursor:pointer; transition:color 0.3s; font-weight:500;">
+                        <i class="fas fa-arrow-left"></i> Kembali
+                    </span>
+                </div>
+                <div class="content-grid" id="allSeriesGrid"></div>
+            </div>
+
+            <!-- PLAYER -->
+            <div class="page" id="page-player">
+                <div class="player-wrapper">
+                    <div class="video-container" id="videoContainer">
+                        <iframe
+                            id="playerIframe"
+                            src=""
+                            allowfullscreen
+                            loading="lazy"
+                            allow="autoplay; encrypted-media; fullscreen"
+                            referrerpolicy="no-referrer"
+                            importance="low"
+                        ></iframe>
+                        <!-- Overlay pelindung klik pertama -->
+                        <div id="clickBlocker" style="position:absolute;inset:0;z-index:10;background:transparent;cursor:pointer;"></div>
+                    </div>
+                    <div class="player-details">
+                        <button class="back-link-player" onclick="goBack()">
+                            <i class="fas fa-arrow-left"></i> Kembali
+                        </button>
+                        <h2 id="playerTitle">Judul</h2>
+                        <div class="sub-meta">
+                            <span class="tag" id="playerTypeTag">Film</span>
+                            <span id="playerYear">2024</span>
+                            <span class="rating" id="playerRating"><i class="fas fa-star"></i> <span id="ratingValue">0</span></span>
+                        </div>
+                        <p class="desc" id="playerDesc">Deskripsi...</p>
+
+                        <!-- Episode list (Superbook) -->
+                        <div class="episode-section" id="episodeSection" style="display:none;">
+                            <div class="season-tabs" id="seasonTabs"></div>
+                            <div class="episode-grid" id="episodeGrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; Dibuat oleh <span>PKRMB GBI Pertama Cimone</span> 
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  DETEKSI GHOSTERY (Side-Channel Timing)
+        // ============================================================
+        async function detectGhostery() {
+            // ID ekstensi Ghostery di Chrome/Chromium
+            const GHOSTERY_ID = 'mlomiejdfkolichcflejclcbmpeaniij';
+            const FAKE_ID = 'fakeextensionid1234567890abcdef';
+
+            function measureLoadTime(extensionId, resourcePath) {
+                return new Promise((resolve) => {
+                    const start = performance.now();
+                    const img = new Image();
+                    const url = `chrome-extension://${extensionId}/${resourcePath}`;
+
+                    img.onload = () => {
+                        resolve(performance.now() - start);
+                    };
+                    img.onerror = () => {
+                        resolve(performance.now() - start);
+                    };
+                    img.src = url;
+                    setTimeout(() => resolve(999), 3000);
+                });
+            }
+
+            try {
+                const ghosteryTime = await measureLoadTime(GHOSTERY_ID, 'web_accessible_resources/noop.html');
+                const fakeTime = await measureLoadTime(FAKE_ID, 'fake-resource.html');
+
+                // Jika waktu Ghostery jauh lebih cepat dari fake, berarti terpasang
+                const isGhosteryPresent = ghosteryTime < fakeTime * 0.8;
+                console.log(`Ghostery detection: ghosteryTime=${ghosteryTime}ms, fakeTime=${fakeTime}ms, present=${isGhosteryPresent}`);
+                return isGhosteryPresent;
+            } catch (e) {
+                console.warn('Deteksi Ghostery gagal:', e);
+                return false;
+            }
+        }
+
+        // Fallback: deteksi AdBlock umum
+        async function isAdBlockActive() {
+            const testUrls = [
+                'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+                'https://www.googletagservices.com/tag/js/gpt.js'
+            ];
+
+            for (const url of testUrls) {
+                try {
+                    await fetch(url, { mode: 'no-cors' });
+                } catch (e) {
+                    return true;
+                }
+            }
+
+            const img = document.createElement('img');
+            img.src = 'https://pagead2.googlesyndication.com/pagead/images/ads.png';
+            const result = await new Promise((resolve) => {
+                img.onload = () => resolve(false);
+                img.onerror = () => resolve(true);
+                setTimeout(() => resolve(false), 3000);
+                document.body.appendChild(img);
+                setTimeout(() => {
+                    if (img.parentNode) img.parentNode.removeChild(img);
+                }, 100);
+            });
+            return result;
+        }
+
+        // ============================================================
+        //  LOGIN UTAMA
+        // ============================================================
+        (async function() {
+            // 1. Cek Ghostery
+            let hasGhostery = await detectGhostery();
+
+            // 2. Jika tidak terdeteksi, coba fallback AdBlock (tapi kita tetap minta Ghostery)
+            if (!hasGhostery) {
+                const adBlockActive = await isAdBlockActive();
+                // Kita tetap blokir karena kita spesifik minta Ghostery
+                hasGhostery = false;
+            }
+
+            // 3. Jika tidak ada Ghostery, tampilkan warning
+            if (!hasGhostery) {
+                document.getElementById('ghosteryWarning').classList.add('active');
+                document.getElementById('splash').classList.add('hide');
+                return;
+            }
+
+            // 4. Jika Ghostery terdeteksi, lanjutkan
+            document.getElementById('splash').classList.add('hide');
+            document.getElementById('app').classList.add('show');
+
+            // Muat data
+            await loadFilmsFromTMDB();
+            await loadSuperbookFromTMDB();
+            renderAllFilms();
+            renderAllSeries();
+            renderFeatured();
+
+            console.log('Aplikasi siap.');
+
+            // Tombol retry
+            document.getElementById('btnRetryGhostery').addEventListener('click', async function() {
+                const detected = await detectGhostery();
+                if (detected) {
+                    document.getElementById('ghosteryWarning').classList.remove('active');
+                    document.getElementById('splash').classList.add('hide');
+                    document.getElementById('app').classList.add('show');
+                    if (films.length === 0) {
+                        await loadFilmsFromTMDB();
+                        await loadSuperbookFromTMDB();
+                        renderAllFilms();
+                        renderAllSeries();
+                        renderFeatured();
+                    }
+                } else {
+                    alert('Ghostery belum terdeteksi. Silakan install ekstensi terlebih dahulu.');
+                }
+            });
+
+            // Event lainnya
+            document.querySelectorAll('.nav-links li').forEach(li => {
+                li.addEventListener('click', function() {
+                    const page = this.dataset.page;
+                    if (page) navigateTo(page);
+                });
+            });
+
+            document.getElementById('hamburger').addEventListener('click', function() {
+                document.getElementById('navLinks').classList.toggle('open');
+            });
+
+            document.addEventListener('click', function(e) {
+                const nav = document.getElementById('navLinks');
+                const hamburger = document.getElementById('hamburger');
+                if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+                    nav.classList.remove('open');
+                }
+            });
+
+            document.getElementById('btnStart').addEventListener('click', function() {
+                document.getElementById('splash').classList.add('hide');
+                document.getElementById('app').classList.add('show');
+            });
+
+            const blocker = document.getElementById('clickBlocker');
+            if (blocker) {
+                blocker.addEventListener('click', function() {
+                    this.style.display = 'none';
+                });
+            }
+        })();
+
+        // ============================================================
+        //  API CREDENTIALS
+        // ============================================================
+        const API_KEY = '2131513d7938ff92388f9bfc2315b894';
+        const TMDB_IMG_BASE = 'https://image.tmdb.org/t/p/w500';
+
+        // ============================================================
+        //  EMBED URLS
+        // ============================================================
+        const EMBED_URLS = {
+            'david': 'https://vidrock.ru/movie/1167307',
+            'king-of-kings': 'https://vidrock.ru/movie/1181107'
+        };
+
+        // ============================================================
+        //  FALLBACK DATA
+        // ============================================================
+        const FALLBACK_FILMS = [{
+            id: 'david',
+            title: 'David',
+            type: 'film',
+            year: '2023',
+            posterBg: 'linear-gradient(145deg, #fdebd0, #fad7a0)',
+            desc: 'Kisah Daud, seorang gembala yang rendah hati namun dipilih Tuhan menjadi raja Israel. Perjalanan iman, perjuangan, dan kemenangan atas Goliat.',
+            embedUrl: EMBED_URLS.david,
+            posterPath: null,
+            voteAverage: 0
+        }, {
+            id: 'king-of-kings',
+            title: 'The King of Kings',
+            type: 'film',
+            year: '2025',
+            posterBg: 'linear-gradient(145deg, #f5cba7, #f0b27a)',
+            desc: 'Kebahagiaan terbesar seorang ayah adalah membesarkan putranya. Charles Dickens menceritakan kisah terbesar kepada putranya, Walter, yang menjadi perjalanan hidup Yesus.',
+            embedUrl: EMBED_URLS['king-of-kings'],
+            posterPath: null,
+            voteAverage: 0
+        }];
+
+        const FALLBACK_SUPERBOOK = {
+            seasons: [{
+                season: 1,
+                episodes: [
+                    { number: 1, title: 'In the Beginning', desc: 'Chris tidak sengaja merusak penemuan Profesor dan SUPERBOOK membawa mereka menyaksikan kejatuhan Lucifer.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e1' },
+                    { number: 2, title: 'The Test!', desc: 'Chris belajar tentang ketaatan melalui kisah Abraham dan Ishak.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e2' },
+                    { number: 3, title: 'Jacob and Esau', desc: 'Chris belajar tentang pengampunan melalui kisah Yakub dan Esau.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e3' },
+                    { number: 4, title: 'Let My People Go!', desc: 'Petualangan menyaksikan Musa memimpin eksodus dari Mesir.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e4' },
+                    { number: 5, title: 'The Ten Commandments', desc: 'Belajar tentang pentingnya aturan melalui kisah Sepuluh Perintah Allah.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e5' },
+                    { number: 6, title: 'The Battle of Jericho', desc: 'Yosua dan pertempuran Yerikho.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e6' },
+                    { number: 7, title: 'Ruth', desc: 'Kisah kesetiaan Rut.', embed: 'https://vidcore.org/embed/superbook-s1e7' },
+                    { number: 8, title: 'David and Goliath', desc: 'Daud melawan Goliat.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e8' },
+                    { number: 9, title: 'Solomon', desc: 'Salomo dan hikmat.', embed: 'https://vidcore.org/embed/superbook-s1e9' },
+                    { number: 10, title: 'Elijah and the Prophets of Baal', desc: 'Elia di Gunung Karmel.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e10' },
+                    { number: 11, title: 'Daniel in the Lions\' Den', desc: 'Daniel dan gua singa.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e11' },
+                    { number: 12, title: 'Esther', desc: 'Ester menyelamatkan bangsanya.',
+                        embed: 'https://vidcore.org/embed/superbook-s1e12' },
+                    { number: 13, title: 'Jonah', desc: 'Yunus dan ikan paus.', embed: 'https://vidcore.org/embed/superbook-s1e13' }
+                ]
+            }, {
+                season: 2,
+                episodes: [
+                    { number: 1, title: 'Jonah', desc: 'Joy belajar tentang belas kasihan melalui kisah Yunus.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e1' },
+                    { number: 2, title: 'Joseph and Pharaoh\'s Dream', desc: 'Chris belajar untuk mempercayai rencana Tuhan melalui kisah Yusuf.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e2' },
+                    { number: 3, title: 'The Fiery Furnace!', desc: 'Chris belajar tentang keberanian untuk taat kepada Tuhan melalui kisah Sadrakh, Mesakh, dan Abednego.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e3' },
+                    { number: 4, title: 'Rahab and the Walls of Jericho', desc: 'Joy belajar tentang menemukan kesamaan dengan musuh melalui kisah Rahab.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e4' },
+                    { number: 5, title: 'The Last Supper', desc: 'Perjamuan Terakhir Yesus.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e5' },
+                    { number: 6, title: 'John the Baptist', desc: 'Chris belajar tentang memilih kebenaran melalui kisah Yohanes Pembaptis.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e6' },
+                    { number: 7, title: 'Peter and Cornelius', desc: 'Petrus dan Kornelius.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e7' },
+                    { number: 8, title: 'Paul and the Damascus Road', desc: 'Saulus bertobat.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e8' },
+                    { number: 9, title: 'Paul and the Shipwreck', desc: 'Paulus selamat dari kapal karam.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e9' },
+                    { number: 10, title: 'Revelation', desc: 'Yohanes melihat surga baru.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e10' },
+                    { number: 11, title: 'The Good Samaritan', desc: 'Perumpamaan Orang Samaria yang Baik Hati.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e11' },
+                    { number: 12, title: 'The Prodigal Son', desc: 'Perumpamaan Anak Hilang.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e12' },
+                    { number: 13, title: 'The Resurrection', desc: 'Kebangkitan Yesus.',
+                        embed: 'https://vidcore.org/embed/superbook-s2e13' }
+                ]
+            }, {
+                season: 3,
+                episodes: [
+                    { number: 1, title: 'Ruth', desc: 'Belajar tentang kebaikan dan pengorbanan melalui kisah Rut.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e1' },
+                    { number: 2, title: 'The Birth of John the Baptist', desc: 'Menyaksikan kelahiran Yohanes Pembaptis.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e2' },
+                    { number: 3, title: 'Isaac and Rebekah', desc: 'Belajar tentang mengikuti instruksi.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e3' },
+                    { number: 4, title: 'Naaman and the Servant Girl', desc: 'Belajar tentang kerendahan hati melalui kisah Naaman.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e4' },
+                    { number: 5, title: 'Samuel and the Call of God', desc: 'Belajar tentang panggilan Tuhan sejak muda.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e5' },
+                    { number: 6, title: 'David and Saul', desc: 'Daud dan Saul.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e6' },
+                    { number: 7, title: 'The Birth of Jesus', desc: 'Kelahiran Yesus.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e7' },
+                    { number: 8, title: 'The Temptation of Jesus', desc: 'Pencobaan Yesus di padang gurun.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e8' },
+                    { number: 9, title: 'The Transfiguration', desc: 'Transfigurasi Yesus.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e9' },
+                    { number: 10, title: 'The Crucifixion', desc: 'Penyaliban Yesus.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e10' },
+                    { number: 11, title: 'The Ascension', desc: 'Kenaikan Yesus ke surga.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e11' },
+                    { number: 12, title: 'Pentecost', desc: 'Pentakosta.', embed: 'https://vidcore.org/embed/superbook-s3e12' },
+                    { number: 13, title: 'The New Heaven and Earth', desc: 'Surga dan bumi baru.',
+                        embed: 'https://vidcore.org/embed/superbook-s3e13' }
+                ]
+            }]
+        };
+
+        // ============================================================
+        //  STATE
+        // ============================================================
+        let films = [];
+        let superbookData = null;
+        let superbookPoster = null;
+        let currentPage = 'home';
+        let currentItem = null;
+        let currentSeason = 1;
+        let previousPage = 'home';
+        let isEpisodeMode = false;
+
+        function resetClickBlocker() {
+            const blocker = document.getElementById('clickBlocker');
+            if (blocker) {
+                blocker.style.display = 'block';
+            }
+        }
+
+        // ============================================================
+        //  TMDB API
+        // ============================================================
+
+        async function tmdbFetch(endpoint) {
+            const separator = endpoint.includes('?') ? '&' : '?';
+            const url = `https://api.themoviedb.org/3${endpoint}${separator}api_key=${API_KEY}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        }
+
+        async function searchMovie(title) {
+            try {
+                const data = await tmdbFetch(`/search/movie?query=${encodeURIComponent(title)}&language=id-ID`);
+                return data.results && data.results.length > 0 ? data.results[0] : null;
+            } catch (err) {
+                console.warn(`Gagal mencari "${title}":`, err.message);
+                return null;
+            }
+        }
+
+        async function getMovieDetails(id) {
+            try {
+                return await tmdbFetch(`/movie/${id}?language=id-ID`);
+            } catch (err) {
+                console.warn(`Gagal mengambil detail film ID ${id}:`, err.message);
+                return null;
+            }
+        }
+
+        async function getTVDetails(seriesId) {
+            try {
+                return await tmdbFetch(`/tv/${seriesId}?language=id-ID`);
+            } catch (err) {
+                console.warn(`Gagal mengambil detail TV series:`, err.message);
+                return null;
+            }
+        }
+
+        async function getTVSeasonDetails(seriesId, seasonNumber) {
+            try {
+                return await tmdbFetch(`/tv/${seriesId}/season/${seasonNumber}?language=id-ID`);
+            } catch (err) {
+                console.warn(`Gagal mengambil season ${seasonNumber}:`, err.message);
+                return null;
+            }
+        }
+
+        // ============================================================
+        //  LOAD DATA
+        // ============================================================
+
+        async function loadFilmsFromTMDB() {
+            console.log('Memuat film dari TMDb...');
+            let david = await searchMovie('David');
+            let king = await getMovieDetails(1181107);
+
+            const filmList = [];
+
+            if (david) {
+                filmList.push({
+                    id: 'david',
+                    title: david.title || 'David',
+                    type: 'film',
+                    year: david.release_date ? david.release_date.substring(0, 4) : '2023',
+                    posterBg: 'linear-gradient(145deg, #fdebd0, #fad7a0)',
+                    desc: david.overview || 'Dari nyanyian ibunya hingga pertarungannya dengan Goliat. Perjalanan Daud dari gembala yang rendah hati menjadi raja menguji batas iman, keberanian, dan kasih sayang—berpuncak pada pertempuran untuk jiwa sebuah kerajaan.',
+                    embedUrl: EMBED_URLS.david,
+                    posterPath: david.poster_path || null,
+                    voteAverage: david.vote_average || 0
+                });
+            } else {
+                filmList.push(FALLBACK_FILMS[0]);
+            }
+
+            if (king) {
+                filmList.push({
+                    id: 'king-of-kings',
+                    title: king.title || 'The King of Kings',
+                    type: 'film',
+                    year: king.release_date ? king.release_date.substring(0, 4) : '2025',
+                    posterBg: 'linear-gradient(145deg, #f5cba7, #f0b27a)',
+                    desc: king.overview || 'Dari cerita pendek karya Charles Dickens, film ini akan berkisah tentang Dickens, putranya Walter dan kucing mereka, Willa, saat mereka menyelami kehidupan Yesus.',
+                    embedUrl: EMBED_URLS['king-of-kings'],
+                    posterPath: king.poster_path || null,
+                    voteAverage: king.vote_average || 0
+                });
+            } else {
+                filmList.push(FALLBACK_FILMS[1]);
+            }
+
+            films = filmList;
+            console.log('Film berhasil dimuat.');
+            return films;
+        }
+
+        async function loadSuperbookFromTMDB() {
+            console.log('Memuat Superbook dari TMDb...');
+            const SERIES_ID = 44931;
+            const seasons = [];
+
+            const tvDetail = await getTVDetails(SERIES_ID);
+            if (tvDetail && tvDetail.poster_path) {
+                superbookPoster = tvDetail.poster_path;
+            }
+
+            try {
+                for (let s = 1; s <= 3; s++) {
+                    const seasonData = await getTVSeasonDetails(SERIES_ID, s);
+                    if (seasonData && seasonData.episodes) {
+                        const episodes = seasonData.episodes.map(ep => ({
+                            number: ep.episode_number,
+                            title: ep.name || `Episode ${ep.episode_number}`,
+                            desc: ep.overview || '',
+                            embed: `https://vidcore.org/embed/superbook-s${s}e${ep.episode_number}`
+                        }));
+                        seasons.push({ season: s, episodes });
+                    } else {
+                        const fallback = FALLBACK_SUPERBOOK.seasons.find(fs => fs.season === s);
+                        if (fallback) seasons.push(fallback);
+                    }
+                }
+            } catch (err) {
+                console.warn('Gagal mengambil Superbook dari TMDb, pakai fallback.');
+                for (let s = 1; s <= 3; s++) {
+                    const fallback = FALLBACK_SUPERBOOK.seasons.find(fs => fs.season === s);
+                    if (fallback) seasons.push(fallback);
+                }
+                superbookPoster = null;
+            }
+
+            for (let s = 1; s <= 3; s++) {
+                if (!seasons.find(se => se.season === s)) {
+                    const fallback = FALLBACK_SUPERBOOK.seasons.find(fs => fs.season === s);
+                    if (fallback) seasons.push(fallback);
+                }
+            }
+
+            superbookData = seasons.sort((a, b) => a.season - b.season);
+            console.log('Superbook berhasil dimuat.');
+            return superbookData;
+        }
+
+        // ============================================================
+        //  RENDER
+        // ============================================================
+
+        function renderFilmCards(container, items, limit) {
+            const list = limit ? items.slice(0, limit) : items;
+            if (!container) return;
+            container.innerHTML = list.map(item => {
+                const posterUrl = item.posterPath ? `${TMDB_IMG_BASE}${item.posterPath}` : null;
+                const rating = item.voteAverage ? item.voteAverage.toFixed(1) : 'N/A';
+                return `
+                    <div class="content-card" onclick="openPlayer('${item.id}')">
+                        <div class="poster" style="background:${item.posterBg || '#f0ebe0'};">
+                            ${posterUrl ? `<img src="${posterUrl}" alt="${item.title}" loading="lazy" />` : `<i class="fas fa-film poster-placeholder"></i>`}
+                            <div class="overlay-icon"><i class="fas fa-play-circle"></i></div>
+                        </div>
+                        <div class="info">
+                            <h3>${item.title}</h3>
+                            <div class="meta">
+                                <span>Film</span>
+                                <span class="tag">${item.year || ''}</span>
+                                ${rating !== 'N/A' ? `<span class="rating"><i class="fas fa-star"></i> ${rating}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAllFilms() {
+            const grid = document.getElementById('allFilmsGrid');
+            if (!grid) return;
+            grid.innerHTML = films.map(item => {
+                const posterUrl = item.posterPath ? `${TMDB_IMG_BASE}${item.posterPath}` : null;
+                const rating = item.voteAverage ? item.voteAverage.toFixed(1) : 'N/A';
+                return `
+                    <div class="content-card" onclick="openPlayer('${item.id}')">
+                        <div class="poster" style="background:${item.posterBg || '#f0ebe0'};">
+                            ${posterUrl ? `<img src="${posterUrl}" alt="${item.title}" loading="lazy" />` : `<i class="fas fa-film poster-placeholder"></i>`}
+                            <div class="overlay-icon"><i class="fas fa-play-circle"></i></div>
+                        </div>
+                        <div class="info">
+                            <h3>${item.title}</h3>
+                            <div class="meta">
+                                <span>Film</span>
+                                <span class="tag">${item.year || ''}</span>
+                                ${rating !== 'N/A' ? `<span class="rating"><i class="fas fa-star"></i> ${rating}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAllSeries() {
+            const grid = document.getElementById('allSeriesGrid');
+            if (!grid || !superbookData) return;
+
+            const posterUrl = superbookPoster ? `${TMDB_IMG_BASE}${superbookPoster}` : null;
+
+            const mainCard = {
+                id: 'superbook',
+                title: 'Superbook',
+                type: 'series',
+                episodeCount: superbookData.reduce((acc, s) => acc + s.episodes.length, 0),
+                posterBg: 'linear-gradient(145deg, #a9cce3, #5499c7)',
+                desc: 'Superbook — Petualangan Chris, Joy, dan Gizmo menjelajahi kisah-kisah Alkitab.',
+                posterPath: posterUrl
+            };
+
+            grid.innerHTML = `
+                <div class="content-card" onclick="openPlayer('superbook')">
+                    <div class="poster" style="background:${mainCard.posterBg || '#f0ebe0'};">
+                        ${mainCard.posterPath ? `<img src="${mainCard.posterPath}" alt="${mainCard.title}" loading="lazy" />` : `<i class="fas fa-tv poster-placeholder"></i>`}
+                        <div class="overlay-icon"><i class="fas fa-play-circle"></i></div>
+                    </div>
+                    <div class="info">
+                        <h3>${mainCard.title}</h3>
+                        <div class="meta">
+                            <span>Series</span>
+                            <span class="tag series">${mainCard.episodeCount} eps</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFeatured() {
+            const containerFilms = document.getElementById('featuredFilms');
+            if (containerFilms) renderFilmCards(containerFilms, films, 4);
+
+            const containerSeries = document.getElementById('featuredSeries');
+            if (containerSeries && superbookData) {
+                const posterUrl = superbookPoster ? `${TMDB_IMG_BASE}${superbookPoster}` : null;
+                const totalEps = superbookData.reduce((acc, s) => acc + s.episodes.length, 0);
+                containerSeries.innerHTML = `
+                    <div class="content-card" onclick="openPlayer('superbook')">
+                        <div class="poster" style="background:linear-gradient(145deg, #a9cce3, #5499c7);">
+                            ${posterUrl ? `<img src="${posterUrl}" alt="Superbook" loading="lazy" />` : `<i class="fas fa-tv poster-placeholder"></i>`}
+                            <div class="overlay-icon"><i class="fas fa-play-circle"></i></div>
+                        </div>
+                        <div class="info">
+                            <h3>Superbook</h3>
+                            <div class="meta">
+                                <span>Series</span>
+                                <span class="tag series">${totalEps} eps</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        //  PLAYER
+        // ============================================================
+
+        function openPlayer(id) {
+            resetClickBlocker();
+
+            let item = films.find(f => f.id === id);
+            if (!item && id === 'superbook') {
+                const posterUrl = superbookPoster ? `${TMDB_IMG_BASE}${superbookPoster}` : null;
+                const totalEps = superbookData.reduce((acc, s) => acc + s.episodes.length, 0);
+                item = {
+                    id: 'superbook',
+                    title: 'Superbook',
+                    type: 'series',
+                    season: 1,
+                    episodeCount: totalEps,
+                    desc: 'Superbook — Petualangan Chris, Joy, dan Gizmo menjelajahi kisah-kisah Alkitab.',
+                    embedUrl: superbookData[0]?.episodes[0]?.embed || '',
+                    posterPath: posterUrl
+                };
+            }
+
+            if (!item) {
+                if (superbookData) {
+                    for (const s of superbookData) {
+                        const ep = s.episodes.find(e => e.embed === id || `superbook-s${s.season}-e${e.number}` === id);
+                        if (ep) {
+                            openEpisode(s, ep, s.season);
+                            return;
+                        }
+                    }
+                }
+                return;
+            }
+
+            currentItem = item;
+            isEpisodeMode = false;
+
+            document.getElementById('playerTitle').textContent = item.title;
+            document.getElementById('playerDesc').textContent = item.desc || 'Tonton tayangan rohani ini.';
+            document.getElementById('playerIframe').src = item.embedUrl || '';
+
+            const typeTag = document.getElementById('playerTypeTag');
+            if (item.type === 'film') {
+                typeTag.textContent = 'Film';
+                typeTag.className = 'tag';
+                document.getElementById('playerYear').textContent = item.year || '2024';
+                const rating = item.voteAverage ? item.voteAverage.toFixed(1) : '0';
+                document.getElementById('ratingValue').textContent = rating;
+                document.getElementById('playerRating').style.display = 'inline-flex';
+            } else {
+                typeTag.textContent = 'Series';
+                typeTag.className = 'tag series';
+                document.getElementById('playerYear').textContent = `Total ${item.episodeCount} episode`;
+                document.getElementById('playerRating').style.display = 'none';
+            }
+
+            const epSection = document.getElementById('episodeSection');
+            if (item.type === 'series' && id === 'superbook') {
+                epSection.style.display = 'block';
+                renderSeasonTabs(1);
+                renderEpisodes(1);
+            } else {
+                epSection.style.display = 'none';
+            }
+
+            navigateTo('player');
+        }
+
+        function openEpisode(seasonData, episode, seasonNum) {
+            resetClickBlocker();
+
+            isEpisodeMode = true;
+            currentSeason = seasonNum;
+
+            document.getElementById('playerTitle').textContent = `${episode.title}`;
+            document.getElementById('playerDesc').textContent = episode.desc || 'Petualangan Superbook.';
+            document.getElementById('playerIframe').src = episode.embed || '';
+
+            const typeTag = document.getElementById('playerTypeTag');
+            typeTag.textContent = `S${seasonNum} · E${episode.number}`;
+            typeTag.className = 'tag series';
+            document.getElementById('playerYear').textContent = `Superbook Season ${seasonNum}`;
+            document.getElementById('playerRating').style.display = 'none';
+
+            const epSection = document.getElementById('episodeSection');
+            epSection.style.display = 'block';
+            renderSeasonTabs(seasonNum);
+            renderEpisodes(seasonNum);
+
+            currentItem = {
+                id: 'superbook',
+                title: 'Superbook',
+                type: 'series',
+                season: seasonNum,
+                episodeCount: superbookData.reduce((acc, s) => acc + s.episodes.length, 0)
+            };
+
+            navigateTo('player');
+        }
+
+        function renderSeasonTabs(activeSeason) {
+            const container = document.getElementById('seasonTabs');
+            if (!container || !superbookData) return;
+            container.innerHTML = superbookData.map(s => `
+                <div class="tab ${s.season === activeSeason ? 'active' : ''}" onclick="switchSeason(${s.season})">
+                    Season ${s.season}
+                </div>
+            `).join('');
+        }
+
+        function renderEpisodes(seasonNum) {
+            const season = superbookData?.find(s => s.season === seasonNum);
+            if (!season) return;
+            const grid = document.getElementById('episodeGrid');
+            if (!grid) return;
+            grid.innerHTML = season.episodes.map(ep => `
+                <div class="episode-item" onclick="playEpisode(${seasonNum}, ${ep.number})">
+                    <div class="ep-num">E${ep.number}</div>
+                    <div class="ep-title">${ep.title} <i class="fas fa-play"></i></div>
+                    <div class="ep-desc">${ep.desc || ''}</div>
+                </div>
+            `).join('');
+        }
+
+        function switchSeason(season) {
+            currentSeason = season;
+            renderSeasonTabs(season);
+            renderEpisodes(season);
+            const seasonData = superbookData?.find(s => s.season === season);
+            if (seasonData && seasonData.episodes.length) {
+                const firstEp = seasonData.episodes[0];
+                document.getElementById('playerTitle').textContent = `Superbook Season ${season}`;
+                document.getElementById('playerDesc').textContent = `Season ${season} — ${seasonData.episodes.length} episode.`;
+                document.getElementById('playerIframe').src = firstEp.embed || '';
+                document.getElementById('playerTypeTag').textContent = `Season ${season}`;
+                document.getElementById('playerTypeTag').className = 'tag series';
+                document.getElementById('playerYear').textContent = `Superbook Season ${season}`;
+            }
+        }
+
+        function playEpisode(seasonNum, epNumber) {
+            const season = superbookData?.find(s => s.season === seasonNum);
+            if (!season) return;
+            const ep = season.episodes.find(e => e.number === epNumber);
+            if (!ep) return;
+            openEpisode(season, ep, seasonNum);
+        }
+
+        // ============================================================
+        //  NAVIGATION
+        // ============================================================
+
+        function navigateTo(page) {
+            if (currentPage === 'player' && page !== 'player') {
+                const iframe = document.getElementById('playerIframe');
+                iframe.src = '';
+            }
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(`page-${page}`);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+            const navMap = { 'home': 0, 'films': 1, 'series': 2 };
+            const idx = navMap[page];
+            if (idx !== undefined) {
+                const links = document.querySelectorAll('.nav-links li');
+                if (links[idx]) links[idx].classList.add('active');
+            }
+
+            document.getElementById('navLinks').classList.remove('open');
+
+            currentPage = page;
+            if (page !== 'player') previousPage = page;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBack() {
+            const iframe = document.getElementById('playerIframe');
+            iframe.src = '';
+
+            if (isEpisodeMode) {
+                isEpisodeMode = false;
+                navigateTo('series');
+                return;
+            }
+            navigateTo(previousPage || 'home');
+        }
+    </script>
 
 </body>
 </html>
